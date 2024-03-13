@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Realistic Sketch Generation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px auto;
+            max-width: 800px;
+        }
+
+        .features {
+            width: 30%;
+            padding: 20px;
+            border: 2px solid #333;
+            border-radius: 10px;
+        }
+
+        .canvas {
+            width: 60%;
+            padding: 20px;
+            border: 2px solid #333;
+            border-radius: 10px;
+            position: relative;
+        }
+
+        .feature {
+            border: 1px solid #666;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px;
+            cursor: move;
+        }
+
+        .feature img {
+            max-width: 100px;
+            max-height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Realistic Sketch Generation</h1>
+    <div class="container">
+        <div class="features" id="features">
+            <h2>Facial Features</h2>
+            <div id="eyes" class="feature" draggable="true" ondragstart="drag(event)">
+              <img src="eyes/01.png" alt="Eyes">
+              <img src="eyes/02.png" alt="Eyes">
+              <img src="eyes/03.png" alt="Eyes">
+              <img src="eyes/04.png" alt="Eyes">
+              <img src="eyes/05.png" alt="Eyes">
+              <img src="eyes/06.png" alt="Eyes">
+              <img src="eyes/07.png" alt="Eyes">
+              <img src="eyes/08.png" alt="Eyes">
+              <img src="eyes/09.png" alt="Eyes">
+              <img src="eyes/10.png" alt="Eyes">
+            </div>
+            <div id="ears" class="feature" draggable="true" ondragstart="drag(event)">
+                <img src="more/01.png" alt="more">
+                <img src="more/02.png" alt="more">
+                <img src="more/03.png" alt="more">
+                <img src="more/04.png" alt="more">
+                <img src="more/05.png" alt="more">
+                <img src="more/06.png" alt="more">
+                <img src="more/Group 11.png" alt="more">
+                <img src="more/Group 12.png" alt="more">
+                <img src="more/Group 13.png" alt="more">
+                <img src="more/Group 14.png" alt="more">
+                <img src="more/Group 15.png" alt="more">
+                <img src="more/Group 16.png" alt="more">
+            </div>
+            <div id="moustache" class="feature" draggable="true" ondragstart="drag(event)">
+                <img src="" alt="">
+                <img src="" alt="">
+                <img src="" alt="">
+                <img src="" alt="">
+                <img src="" alt="">
+                <img src="" alt="">
+                <img src="" alt="">
+                <img src="" alt="">
+                <img src="" alt="">
+                <img src="" alt="">
+                <img src="mustach\01.png" alt="Moustache">
+            </div>
+            <div id="beard" class="feature" draggable="true" ondragstart="drag(event)">
+                <img src="" alt="">
+                <img src="" alt="">
+                <img src="" alt="">
+                <img src="" alt="">
+                <img src="" alt="">
+                <img src="" alt="">
+                <img src="" alt="">
+                <img src="" alt="">
+                <img src="" alt="">
+                <img src="" alt="">
+                <img src="mustach\Group 84.png" alt="Beard">
+            </div>
+            <div id="hair" class="feature" draggable="true" ondragstart="drag(event)">
+                <img src="" alt="">
+                <img src="" alt="">
+                <img src="" alt="">
+                <img src="" alt="">
+                <img src="" alt="">
+                <img src="" alt="">
+                <img src="" alt="">
+                <img src="" alt="">
+                <img src="" alt="">
+                <img src="" alt="">
+                <img src="hair\01.png" alt="Hair">
+            </div>
+            <div id="head" class="feature" draggable="true" ondragstart="drag(event)">
+                <img src="" alt="">
+                <img src="" alt="">
+                <img src="" alt="">
+                <img src="" alt="">
+                <img src="" alt="">
+                <img src="" alt="">
+                <img src="" alt="">
+                <img src="" alt="">
+                <img src="" alt="">
+                <img src="" alt="">
+                <img src="head\01.png" alt="Head">
+            </div>
+            <div id="eyebrows" class="feature" draggable="true" ondragstart="drag(event)">
+                <img src="" alt="">
+                <img src="" alt="">
+                <img src="" alt="">
+                <img src="" alt="">
+                <img src="" alt="">
+                <img src="" alt="">
+                <img src="" alt="">
+                <img src="" alt="">
+                <img src="" alt="">
+                <img src="" alt="">
+                <img src="eyebrows/01.png" alt="Eyebrows">
+            </div>
+            <div id="lips" class="feature" draggable="true" ondragstart="drag(event)">
+                <img src="" alt="">
+                <img src="" alt="">
+                <img src="" alt="">
+                <img src="" alt="">
+                <img src="" alt="">
+                <img src="" alt="">
+                <img src="" alt="">
+                <img src="" alt="">
+                <img src="" alt="">
+                <img src="" alt="">
+                <img src="lips\02.png" alt="Lips">
+            </div>
+        </div>
+        <div class="canvas" id="canvas" ondrop="drop(event)" ondragover="allowDrop(event)">
+            <h2>Canvas</h2>
+        </div>
+    </div>
+
+    <script>
+        function allowDrop(event) {
+            event.preventDefault();
+        }
+
+        function drag(event) {
+            event.dataTransfer.setData("text", event.target.id);
+        }
+
+        function drop(event) {
+            event.preventDefault();
+            var data = event.dataTransfer.getData("text");
+            var draggableElement = document.getElementById(data);
+            var clone = draggableElement.cloneNode(true);
+            clone.style.position = "absolute";
+            clone.style.left = (event.clientX - event.target.getBoundingClientRect().left - 50) + "px";
+            clone.style.top = (event.clientY - event.target.getBoundingClientRect().top - 50) + "px";
+            event.target.appendChild(clone);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Realistic Sketch Generation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: white; /* Set background color to white */
+            color: black; /* Text color */
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px auto;
+            max-width: 800px;
+        }
+
+        .features {
+            width: 30%;
+            padding: 20px;
+            border: 2px solid #333;
+            border-radius: 10px;
+            background-color: white; /* White background */
+            color: black; /* Text color */
+        }
+
+        .feature-container {
+            margin-bottom: 20px;
+        }
+
+        .feature {
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px;
+            cursor: move;
+            background-color: #f0f0f0; /* Light grey background */
+        }
+
+        .feature img {
+            max-width: 100px;
+            max-height: 100px;
+            border: none; /* Remove border from images */
+        }
+
+        .canvas {
+            width: 60%;
+            padding: 20px;
+            border: 2px solid #333;
+            border-radius: 10px;
+            position: relative;
+            background-color: white; /* White background */
+            color: black; /* Text color */
+        }
+
+        .feature-container h2 {
+            color: black; /* Set font color to black */
+        }
+
+        h2 {
+            color: #ffcc00; /* Yellow heading color */
+        }
+    </style>
+</head>
+<body>
+    <h1>Realistic Sketch Generation</h1>
+    <div class="container">
+        <div class="features" id="features">
+            <div class="feature-container">
+                <h2>Eyes</h2>
+                <div id="eyes" class="feature" draggable="true" ondragstart="drag(event)">
+                    <img src="eyes\01.png" alt="Eyes 1">
+                </div>
+                <div id="eyes2" class="feature" draggable="true" ondragstart="drag(event)">
+                    <img src="eyes\02.png" alt="Eyes 2">
+                </div>
+                <div id="eyes2" class="feature" draggable="true" ondragstart="drag(event)">
+                            <img src="eyes\03.png" alt="Eyes 2">
+                        </div>
+                <!-- Add more eyes here if needed -->
+            </div>
+            <div class="feature-container">
+                <h2>Nose</h2>
+                <div id="nose" class="feature" draggable="true" ondragstart="drag(event)">
+                    <img src="nose\03.png" alt="Nose">
+                </div>
+                <div id="nose" class="feature" draggable="true" ondragstart="drag(event)">
+                            <img src="nose\02.png" alt="Nose">
+                        </div>
+                <!-- Add more nose styles here if needed -->
+            </div>
+            <div class="feature-container">
+                <h2>hair</h2>
+                <div id="ears" class="feature" draggable="true" ondragstart="drag(event)">
+                    <img src="hair/01.png" alt="Ears 1">
+                </div>
+                <div id="ears2" class="feature" draggable="true" ondragstart="drag(event)">
+                    <img src="hair/02.png" alt="Ears 2">
+                </div>
+                <div id="ears2" class="feature" draggable="true" ondragstart="drag(event)">
+                            <img src="hair/03.png" alt="Ears 2">
+                        </div>
+                <!-- Add more ear styles here if needed -->
+            </div>
+            <div class="feature-container">
+                <h2>Moustache</h2>
+                <div id="moustache" class="feature" draggable="true" ondragstart="drag(event)">
+                    <img src="mustach\01.png" alt="Moustache 1">
+                </div>
+                <div id="moustache" class="feature" draggable="true" ondragstart="drag(event)">
+                            <img src="mustach/02.png" alt="Moustache 1">
+                        </div>
+                <!-- Add more moustache styles here if needed -->
+            </div>
+            <div class="feature-container">
+                <h2><head></head></h2>
+                <div id="beard" class="feature" draggable="true" ondragstart="drag(event)">
+                    <img src="head/01.png" alt="Beard 1">
+                </div>
+                <div id="beard" class="feature" draggable="true" ondragstart="drag(event)">
+                            <img src="head/02.png" alt="Beard 1">
+                        </div>
+                <!-- Add more beard styles here if needed -->
+            </div>
+            <!-- Add more facial features as desired -->
+        </div>
+        <div class="canvas" id="canvas" ondrop="drop(event)" ondragover="allowDrop(event)">
+            <h2>Canvas</h2>
+        </div>
+    </div>
+
+    <script>
+        function allowDrop(event) {
+            event.preventDefault();
+        }
+
+        function drag(event) {
+            event.dataTransfer.setData("text", event.target.id);
+        }
+
+        function drop(event) {
+            event.preventDefault();
+            var data = event.dataTransfer.getData("text");
+            var draggableElement = document.getElementById(data);
+            var clone = draggableElement.cloneNode(true);
+            clone.style.position = "absolute";
+            clone.style.left = (event.clientX - event.target.getBoundingClientRect().left - 50) + "px";
+            clone.style.top = (event.clientY - event.target.getBoundingClientRect().top - 50) + "px";
+            clone.style.zIndex = "1"; // Set z-index to create a layering effect
+            event.target.appendChild(clone);
+        }
+    </script>
+</body>
+</html>
